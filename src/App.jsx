@@ -219,6 +219,9 @@ function App() {
         <div className="artstyle-images">
           <img src="/nft1.jpeg" alt="Offishol NFT art example 1" className="artstyle-img" />
           <img src="/nft2.jpeg" alt="Offishol NFT art example 2" className="artstyle-img" />
+          <img src="/nft3.png" alt="Offishol NFT art example 3" className="artstyle-img" />
+          <img src="/nft4.png" alt="Offishol NFT art example 4" className="artstyle-img" />
+          <img src="/nft5.png" alt="Offishol NFT art example 5" className="artstyle-img" />
         </div>
         <div className="artstyle-copy">
           <p>This look is <strong>100% ours</strong>. We own the creative idea and the art — the vibes, the whole Offishol Futbol identity. What you see here is the real deal.</p>
