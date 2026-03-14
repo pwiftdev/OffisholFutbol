@@ -1,0 +1,31 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --yellow: #FFE135;
+  --yellow-dark: #FFD700;
+  --black: #1a1a1a;
+  --white: #fff;
+  --red: #ff4757;
+  --shadow: 4px 4px 0 #1a1a1a;
+  --font-display: 'Bangers', cursive;
+  --font-wobbly: 'DynaPuff', cursive;
+  --font-hand: 'Permanent Marker', cursive;
+  --font-silly: 'Architects Daughter', cursive;
+  --font-doodle: 'Indie Flower', cursive;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+body {
+  font-family: var(--font-doodle), system-ui, sans-serif;
+  background: var(--yellow);
+  color: var(--black);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
