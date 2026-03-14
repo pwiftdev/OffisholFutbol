@@ -53,6 +53,7 @@ function App() {
   const [whyRef, whyVis] = useScrollAnimation()
   const [roadmapRef, roadmapVis] = useScrollAnimation()
   const [featuresRef, featuresVis] = useScrollAnimation()
+  const [artstyleRef, artstyleVis] = useScrollAnimation()
   const [tokenomicsRef, tokenomicsVis] = useScrollAnimation()
   const [ctaRef, ctaVis] = useScrollAnimation()
   const countdown = useCountdown('2026-06-11T00:00:00Z')
@@ -137,6 +138,10 @@ function App() {
 
       <section ref={heroRef} className={`hero ${heroVis ? 'visible' : ''}`}>
         <div className="hero-glow" aria-hidden />
+        <div className="hero-notice" role="alert">
+          <span className="hero-notice-badge">IMPORTANT</span>
+          <p className="hero-notice-text">The token is <strong>not live yet</strong>. The contract address (CA) will be released on our official <a href="https://x.com/offisholfutbol" target="_blank" rel="noopener noreferrer" className="hero-notice-link">X profile</a>.</p>
+        </div>
         <div className="hero-content">
           <img src="/offishollogo.jpg" alt="Offishol Futbol" className="logo" />
           <h1 className="main-title">OFFISHOL FUTBOL<span className="token">$FUTBOL</span></h1>
@@ -209,6 +214,18 @@ function App() {
         </div>
       </section>
 
+      <section ref={artstyleRef} className={`artstyle ${artstyleVis ? 'visible' : ''}`}>
+        <h2 className="section-title">Our Artstyle</h2>
+        <div className="artstyle-images">
+          <img src="/nft1.jpeg" alt="Offishol NFT art example 1" className="artstyle-img" />
+          <img src="/nft2.jpeg" alt="Offishol NFT art example 2" className="artstyle-img" />
+        </div>
+        <div className="artstyle-copy">
+          <p>This look is <strong>100% ours</strong>. We own the creative idea and the art — the vibes, the whole Offishol Futbol identity. What you see here is the real deal.</p>
+          <p>We are <strong>not affiliated</strong> with any other project or token that tries to copy or replicate our art or brand. If it’s not from our official X and Telegram, it’s not us. Stay sharp and only trust links from our official channels.</p>
+        </div>
+      </section>
+
       <section ref={tokenomicsRef} className={`tokenomics ${tokenomicsVis ? 'visible' : ''}`}>
         <h2 className="tokenomics-title">Tokenumics</h2>
         <p className="tokenomics-intro">Open market launch with 0% in presale over Pump.fun.</p>
@@ -265,14 +282,26 @@ function App() {
       </section>
 
       <section ref={ctaRef} className={`cta ${ctaVis ? 'visible' : ''}`}>
-        <h2 className="cta-title">E Don Cast! Join di Movement</h2>
-        <p className="cta-sub">Solona. Pemp Fon. World Cup 2026. Na we dey run am.</p>
-        <a href="https://t.me/offisholfutbol" target="_blank" rel="noopener noreferrer" className="cta-btn">Join Telegram for Updates</a>
+        <h2 className="cta-title">Join the community</h2>
+        <p className="cta-sub">Get updates, CA drop, and whitelist — only from our official channels.</p>
+        <div className="cta-buttons">
+          <a href="https://t.me/offisholfutbol" target="_blank" rel="noopener noreferrer" className="cta-btn header-btn header-btn-telegram" title="Telegram"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg><span>Join Telegram</span></a>
+          <a href="https://x.com/offisholfutbol" target="_blank" rel="noopener noreferrer" className="cta-btn header-btn header-btn-x" title="X"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg><span>Visit X</span></a>
+        </div>
       </section>
 
       <footer className="footer">
-        <p>Offishol Futbol $FUTBOL — The Official Fish Ball of Football</p>
-        <p className="disclaimer">Disclaimer: This na meme. But di memes, dem dey serious. NFA.</p>
+        <div className="footer-inner">
+          <img src="/offishollogo.jpg" alt="Offishol Futbol" className="footer-logo" />
+          <p className="footer-brand">Offishol Futbol <strong>$FUTBOL</strong></p>
+          <p className="footer-tagline">The Offishol Futbol organisation on Soluna World Cup 2026 soon</p>
+          <div className="footer-buttons">
+            <a href="https://x.com/offisholfutbol" target="_blank" rel="noopener noreferrer" className="header-btn header-btn-x" title="X"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+            <button type="button" className="header-btn header-btn-buy">BUY</button>
+            <a href="https://t.me/offisholfutbol" target="_blank" rel="noopener noreferrer" className="header-btn header-btn-telegram" title="Telegram"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg></a>
+          </div>
+          <p className="footer-disclaimer">Not financial advice. Meme project. NFA.</p>
+        </div>
       </footer>
     </div>
     </>

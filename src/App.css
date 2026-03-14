@@ -1,7 +1,7 @@
 .app {
   max-width: 900px;
   margin: 0 auto;
-  padding: 0 1.5rem 2rem;
+  padding: 0 1.5rem 0;
   position: relative;
   z-index: 1;
 }
@@ -20,7 +20,7 @@
   width: 56px;
   height: 56px;
   object-fit: contain;
-  opacity: 0.2;
+  opacity: 0.75;
   animation: dvdBounce 12s linear infinite;
 }
 
@@ -37,6 +37,8 @@
 .why-offishol.visible .why-grid,
 .roadmap-section.visible .roadmap-timeline,
 .features.visible .feature,
+.artstyle.visible .artstyle-images,
+.artstyle.visible .artstyle-copy,
 .tokenomics.visible .tokenomics-grid,
 .cta.visible {
   animation: fadeUp 0.6s ease-out forwards;
@@ -50,6 +52,8 @@
 .why-offishol .why-grid,
 .roadmap-section .roadmap-timeline,
 .features .feature,
+.artstyle .artstyle-images,
+.artstyle .artstyle-copy,
 .tokenomics .tokenomics-intro,
 .tokenomics .tokenomics-chart,
 .tokenomics .tokenomics-grid,
@@ -60,6 +64,8 @@
 .why-offishol.visible .why-grid,
 .roadmap-section.visible .roadmap-timeline,
 .features.visible .feature,
+.artstyle.visible .artstyle-images,
+.artstyle.visible .artstyle-copy,
 .tokenomics.visible .tokenomics-intro,
 .tokenomics.visible .tokenomics-chart,
 .tokenomics.visible .tokenomics-grid,
@@ -69,6 +75,7 @@
 
 .features .feature:nth-child(2) { animation-delay: 0.1s; }
 .features .feature:nth-child(3) { animation-delay: 0.2s; }
+.artstyle .artstyle-copy { animation-delay: 0.15s; }
 
 /* Site Header — Sticky */
 .site-header {
@@ -186,6 +193,51 @@
   pointer-events: none;
 }
 
+.hero-notice {
+  position: relative;
+  z-index: 1;
+  background: var(--black);
+  color: var(--white);
+  padding: 1rem 1.5rem;
+  margin: 0 auto 2rem;
+  max-width: 560px;
+  border: 4px solid var(--red);
+  box-shadow: 6px 6px 0 var(--red);
+  border-radius: 8px;
+  text-align: center;
+}
+
+.hero-notice-badge {
+  display: inline-block;
+  font-family: var(--font-hand);
+  font-size: 0.9rem;
+  background: var(--red);
+  color: var(--white);
+  padding: 0.25rem 0.75rem;
+  margin-bottom: 0.5rem;
+  border: 2px solid var(--white);
+  border-radius: 4px;
+  letter-spacing: 0.05em;
+}
+
+.hero-notice-text {
+  font-family: var(--font-doodle), system-ui, sans-serif;
+  font-size: clamp(0.95rem, 2.2vw, 1.1rem);
+  line-height: 1.5;
+  margin: 0;
+}
+
+.hero-notice-link {
+  color: var(--yellow);
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.hero-notice-link:hover {
+  color: var(--white);
+}
+
 .hero-content {
   position: relative;
   z-index: 1;
@@ -203,10 +255,12 @@
 
 .countdown-title {
   font-family: var(--font-display);
-  font-size: 1.2rem;
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  font-weight: 700;
+  letter-spacing: 0.02em;
   text-align: center;
   margin-bottom: 1.5rem;
-  color: #444;
+  color: #2d2d2d;
 }
 
 .countdown-grid {
@@ -318,10 +372,11 @@
 
 .african-headline {
   font-family: var(--font-display);
-  font-size: clamp(1.1rem, 3.5vw, 1.5rem);
-  line-height: 1.5;
+  font-size: clamp(1.4rem, 4vw, 1.9rem);
+  font-weight: 700;
+  line-height: 1.4;
   text-transform: uppercase;
-  letter-spacing: 0.03em;
+  letter-spacing: 0.04em;
 }
 
 /* Why Offishol — dark banner style, distinct from white cards */
@@ -343,9 +398,12 @@
 
 .why-title {
   font-family: var(--font-display);
-  font-size: clamp(1.8rem, 5vw, 2.5rem);
+  font-size: clamp(2.2rem, 6vw, 3.2rem);
+  font-weight: 700;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
   margin-bottom: 0.25rem;
+  color: var(--white);
 }
 
 .why-subtitle {
@@ -480,10 +538,13 @@
 
 .section-title {
   font-family: var(--font-display);
-  font-size: clamp(1.8rem, 5vw, 2.5rem);
+  font-size: clamp(2.2rem, 6vw, 3.2rem);
+  font-weight: 700;
+  letter-spacing: 0.04em;
   text-align: center;
   margin-bottom: 2rem;
   text-transform: uppercase;
+  color: var(--black);
   animation: titleBounce 3s ease-in-out infinite;
 }
 
@@ -565,6 +626,64 @@
   line-height: 1.7;
 }
 
+/* Our Artstyle */
+.artstyle {
+  margin: 4rem 0;
+}
+
+.artstyle-images {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+}
+
+.artstyle-img {
+  width: 100%;
+  max-width: 280px;
+  height: auto;
+  border: 4px solid var(--black);
+  box-shadow: var(--shadow);
+  border-radius: 8px;
+  object-fit: cover;
+  animation: artstyleFloat 4s ease-in-out infinite;
+}
+
+.artstyle-img:nth-child(2) {
+  animation-delay: -2s;
+}
+
+@keyframes artstyleFloat {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-8px) scale(1.02); }
+}
+
+.artstyle-copy {
+  max-width: 640px;
+  margin: 0 auto;
+  background: var(--white);
+  border: 4px solid var(--black);
+  padding: 2rem;
+  box-shadow: var(--shadow);
+  border-radius: 8px;
+}
+
+.artstyle-copy p {
+  font-family: var(--font-doodle);
+  font-size: 1.05rem;
+  line-height: 1.7;
+  margin-bottom: 1rem;
+}
+
+.artstyle-copy p:last-child {
+  margin-bottom: 0;
+}
+
+.artstyle-copy strong {
+  color: var(--red);
+}
+
 /* Tokenomics */
 .tokenomics {
   margin: 4rem 0;
@@ -572,10 +691,13 @@
 
 .tokenomics-title {
   font-family: var(--font-display);
-  font-size: clamp(1.8rem, 5vw, 2.5rem);
+  font-size: clamp(2.2rem, 6vw, 3.2rem);
+  font-weight: 700;
+  letter-spacing: 0.04em;
   text-align: center;
   margin-bottom: 0.5rem;
   text-transform: uppercase;
+  color: var(--black);
 }
 
 .tokenomics-intro {
@@ -671,11 +793,13 @@
 
 .roadmap-main-title {
   font-family: var(--font-display);
-  font-size: clamp(1.8rem, 5vw, 2.5rem);
+  font-size: clamp(2.2rem, 6vw, 3.2rem);
+  font-weight: 700;
+  letter-spacing: 0.04em;
   text-align: center;
   margin-bottom: 2rem;
   text-transform: uppercase;
-  color: #2d2d2d;
+  color: var(--black);
 }
 
 .roadmap-timeline {
@@ -813,56 +937,97 @@
 
 .cta-title {
   font-family: var(--font-display);
-  font-size: clamp(1.5rem, 4vw, 2.2rem);
+  font-size: clamp(2rem, 5.5vw, 2.8rem);
+  font-weight: 700;
+  letter-spacing: 0.03em;
   margin-bottom: 0.5rem;
+  color: var(--yellow);
 }
 
 .cta-sub {
   font-family: var(--font-silly);
   font-size: 1.1rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
+  color: rgba(255, 255, 255, 0.9);
 }
 
-.cta-btn {
-  display: inline-block;
-  font-family: var(--font-hand);
-  font-size: 1.1rem;
-  padding: 1rem 2.5rem;
-  background: var(--yellow);
-  color: var(--black);
-  border: 4px solid var(--black);
-  box-shadow: 4px 4px 0 var(--black);
-  cursor: pointer;
+.cta-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.cta-buttons .header-btn {
+  gap: 0.5rem;
+  padding: 0 1.25rem;
   text-decoration: none;
-  transition: transform 0.2s, box-shadow 0.2s;
-  animation: ctaPulse 2s ease-in-out infinite;
 }
 
-.cta-btn:hover {
-  transform: translate(2px, 2px);
-  box-shadow: 2px 2px 0 var(--black);
-  animation-play-state: paused;
-  color: var(--black);
-}
-
-@keyframes ctaPulse {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.03); }
+.cta-buttons .header-btn span {
+  font-family: var(--font-hand);
+  font-size: 1rem;
 }
 
 /* Footer */
 .footer {
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  box-sizing: border-box;
+  background: var(--white);
+  border-top: 5px solid var(--black);
+  box-shadow: 0 -4px 0 var(--black);
+  padding: 3rem 1.5rem;
+}
+
+.footer-inner {
+  max-width: 640px;
+  margin: 0 auto;
   text-align: center;
-  padding: 2.5rem 2rem;
+}
+
+.footer-logo {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+  border: 4px solid var(--black);
+  border-radius: 50%;
+  box-shadow: 3px 3px 0 var(--black);
+  margin-bottom: 1rem;
+}
+
+.footer-brand {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  color: var(--black);
+  margin-bottom: 0.25rem;
+}
+
+.footer-brand strong {
+  color: var(--red);
+}
+
+.footer-tagline {
   font-family: var(--font-doodle);
   font-size: 0.95rem;
   color: #555;
+  margin-bottom: 1.5rem;
 }
 
-.disclaimer {
-  margin-top: 0.75rem;
-  font-size: 0.85rem;
+.footer-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.footer-disclaimer {
+  font-family: var(--font-doodle);
+  font-size: 0.8rem;
+  color: #777;
   font-style: italic;
+  margin: 0;
 }
 
 /* Whitelist Popup */
