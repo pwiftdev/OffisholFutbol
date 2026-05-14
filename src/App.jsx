@@ -63,6 +63,7 @@ const WC_STATS = [
 const BET_APP_URL = 'https://bet.offishol.futbol'
 const WC_STREAM_URL = 'https://offishol.futbol'
 const LIVE_SCORE_API_URL = 'https://live-score-api.com/'
+const TOKEN_MINT_ADDRESS = '41MQK1i6SMhnc1B9EoCDE8Ayx7HE9hJq9MycEPawpump'
 
 function AppIcon() {
   return (
@@ -78,6 +79,7 @@ function App() {
   const [hasTriggered, setHasTriggered] = useState(false)
   const [openFaq, setOpenFaq] = useState(null)
   const [mobileNavOpen, setMobileNavOpen] = useState(false)
+  const [mintCopied, setMintCopied] = useState(false)
   const navToggleRef = useRef(null)
   const [heroRef, heroVis] = useScrollAnimation()
   const [wcRef, wcVis] = useScrollAnimation()
@@ -94,6 +96,16 @@ function App() {
     requestAnimationFrame(() => {
       navToggleRef.current?.focus()
     })
+  }, [])
+
+  const copyMintAddress = useCallback(async () => {
+    try {
+      await navigator.clipboard.writeText(TOKEN_MINT_ADDRESS)
+      setMintCopied(true)
+      window.setTimeout(() => setMintCopied(false), 2000)
+    } catch {
+      setMintCopied(false)
+    }
   }, [])
 
   useEffect(() => {
@@ -167,6 +179,25 @@ function App() {
       <div className={`app ${loaded ? 'loaded' : ''}`}>
       <div className="dvd-bg" aria-hidden>
         <img src="/icons/soccer.png" alt="" className="dvd-ball" />
+      </div>
+
+      <div className="contract-banner" role="region" aria-label="$FUTBOL Solana mint address">
+        <div className="contract-banner-inner">
+          <span className="contract-banner-label">Contract</span>
+          <div className="contract-banner-addr-wrap">
+            <a
+              href={`https://solscan.io/token/${TOKEN_MINT_ADDRESS}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="contract-banner-addr"
+            >
+              {TOKEN_MINT_ADDRESS}
+            </a>
+          </div>
+          <button type="button" className="contract-banner-copy" onClick={copyMintAddress}>
+            {mintCopied ? 'Copied' : 'Copy'}
+          </button>
+        </div>
       </div>
 
       <div className="wc-top-banner" role="region" aria-label="World Cup coverage">
@@ -294,10 +325,6 @@ function App() {
 
       <section ref={heroRef} className={`hero ${heroVis ? 'visible' : ''}`}>
         <div className="hero-glow" aria-hidden />
-        <div className="hero-notice" role="alert">
-          <span className="hero-notice-badge">IMPORTANT</span>
-          <p className="hero-notice-text">The token is <strong>not live yet</strong>. The CA will drop on our official <a href="https://x.com/offisholfutbol" target="_blank" rel="noopener noreferrer" className="hero-notice-link">X profile</a>.</p>
-        </div>
         <div className="hero-split">
           <div className="hero-text">
             <div className="hero-eyebrow">On Solana · World Cup 2026</div>

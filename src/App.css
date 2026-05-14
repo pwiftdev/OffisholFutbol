@@ -78,6 +78,89 @@
 
 .artstyle.visible .artstyle-copy { transition-delay: 0.15s; }
 
+/* ============ CONTRACT (mint) — top strip ============ */
+.contract-banner {
+  width: 100vw;
+  max-width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  box-sizing: border-box;
+  padding: 0.5rem 1.25rem;
+  padding-left: max(1.25rem, env(safe-area-inset-left, 0px));
+  padding-right: max(1.25rem, env(safe-area-inset-right, 0px));
+  background: #111;
+  border-bottom: 2px solid var(--black);
+}
+
+.contract-banner-inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.5rem 0.85rem;
+  max-width: min(1100px, 100%);
+  margin: 0 auto;
+}
+
+.contract-banner-label {
+  flex-shrink: 0;
+  font-family: var(--font-hand);
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--yellow);
+}
+
+.contract-banner-addr-wrap {
+  flex: 1 1 12rem;
+  min-width: 0;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  text-align: center;
+  scrollbar-width: thin;
+}
+
+.contract-banner-addr {
+  display: inline-block;
+  font-family: ui-monospace, 'Cascadia Code', 'SF Mono', Menlo, monospace;
+  font-size: clamp(0.62rem, 1.65vw, 0.8rem);
+  line-height: 1.35;
+  color: #f5f5f5;
+  text-decoration: none;
+  white-space: nowrap;
+  padding: 0.15rem 0;
+}
+
+.contract-banner-addr:hover {
+  color: var(--yellow);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.contract-banner-copy {
+  flex-shrink: 0;
+  font-family: var(--font-hand);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.35rem 0.75rem;
+  cursor: pointer;
+  color: var(--black);
+  background: var(--yellow);
+  border: 2px solid var(--black);
+  border-radius: 8px;
+  box-shadow: 2px 2px 0 var(--black);
+}
+
+.contract-banner-copy:hover {
+  filter: brightness(1.05);
+}
+
+.contract-banner-copy:focus-visible {
+  outline: 3px solid var(--red);
+  outline-offset: 2px;
+}
+
 /* ============ WORLD CUP PROMO (above header) ============ */
 .wc-top-banner {
   width: 100vw;
@@ -493,51 +576,6 @@
   background: radial-gradient(circle, rgba(255, 225, 53, 0.4) 0%, transparent 70%);
   pointer-events: none;
 }
-
-.hero-notice {
-  position: relative;
-  z-index: 1;
-  background: var(--black);
-  color: var(--white);
-  padding: 0.75rem 1.25rem;
-  margin: 0 auto 2rem;
-  border: 4px solid var(--red);
-  box-shadow: 5px 5px 0 var(--red);
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  flex-wrap: wrap;
-}
-
-.hero-notice-badge {
-  display: inline-block;
-  font-family: var(--font-hand);
-  font-size: 0.8rem;
-  background: var(--red);
-  color: var(--white);
-  padding: 0.2rem 0.65rem;
-  border: 2px solid rgba(255,255,255,0.4);
-  border-radius: 4px;
-  letter-spacing: 0.05em;
-  flex-shrink: 0;
-}
-
-.hero-notice-text {
-  font-family: var(--font-doodle), system-ui, sans-serif;
-  font-size: clamp(0.85rem, 2vw, 1rem);
-  line-height: 1.45;
-  margin: 0;
-  flex: 1;
-}
-
-.hero-notice-link {
-  color: var(--yellow);
-  font-weight: 700;
-  text-decoration: underline;
-  text-underline-offset: 2px;
-}
-.hero-notice-link:hover { color: var(--white); }
 
 /* Two-column split layout */
 .hero-split {
@@ -2248,15 +2286,15 @@
     padding-right: max(var(--page-gutter, 1rem), env(safe-area-inset-right, 0px));
   }
 
-  .hero {
-    padding: 1.25rem 0 2rem;
+  .contract-banner {
+    padding-top: 0.45rem;
+    padding-bottom: 0.45rem;
+    padding-left: max(var(--page-gutter, 1rem), env(safe-area-inset-left, 0px));
+    padding-right: max(var(--page-gutter, 1rem), env(safe-area-inset-right, 0px));
   }
 
-  .hero-notice {
-    margin-bottom: 1.25rem;
-    padding: 0.65rem 1rem;
-    flex-direction: column;
-    align-items: flex-start;
+  .hero {
+    padding: 1.25rem 0 2rem;
   }
 
   .main-title {
