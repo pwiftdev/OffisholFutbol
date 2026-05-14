@@ -39,12 +39,12 @@ function useScrollAnimation() {
 }
 
 const FAQ_ITEMS = [
-  { q: 'What is $FUTBOL?', a: '$FUTBOL is the native token of Offishol Futbol — a meme project on Solana built around FIFA World Cup 2026. It powers our NFT collection and decentralized betting platform.' },
+  { q: 'What is $FUTBOL?', a: '$FUTBOL is the native token of Offishol Futbol — a meme project on Solana built around FIFA World Cup 2026. It powers live-match token burns tied to the tournament and our decentralized betting platform.' },
   { q: 'How do I buy?', a: 'We launch on Pump.fun with 0% presale. Connect your Solana wallet and swap SOL for $FUTBOL when we go live. Links will drop on our official X and Telegram.' },
-  { q: 'When is the NFT mint?', a: 'Our FIFA World Cup 2026 player NFT collection lines up with the tournament. NFTs will be free to mint for wallets that hold $FUTBOL at the start of the World Cup — join Telegram for timing and eligibility details.' },
-  { q: 'What is the total supply?', a: '1,000,000,000 $FUTBOL tokens. 80% open market, 15% betting dApp rewards, 5% development (locked).' },
+  { q: 'How do live-match burns work?', a: 'Throughout the World Cup, real match events trigger on-chain burn transactions from the live-match allocation. Every goal burns 250,000 $FUTBOL; every yellow or red card burns 100,000 $FUTBOL. Follow our official channels for execution details and schedules.' },
+  { q: 'What is the total supply?', a: '1,000,000,000 $FUTBOL tokens. 80% open market, 10% live-match burns, 7% betting, 3% development (locked).' },
   { q: 'Is the betting dApp live?', a: 'The betting dApp is currently in development. It will launch ahead of the World Cup 2026 kickoff. Connect your wallet at bet.offishol.futbol to stay ready.' },
-  { q: 'How do I get whitelisted for the NFT mint?', a: 'Join our Telegram community and follow our X account. Whitelist spots will be announced through official channels only.' },
+  { q: 'How do I stay in the loop?', a: 'Join our Telegram community and follow our X account. Burn schedules, app updates, and announcements are shared through official channels only.' },
 ]
 
 const WC_HOSTS = [
@@ -83,7 +83,7 @@ function App() {
   const [wcRef, wcVis] = useScrollAnimation()
   const [whyRef, whyVis] = useScrollAnimation()
   const [roadmapRef, roadmapVis] = useScrollAnimation()
-  const [featuresRef, featuresVis] = useScrollAnimation()
+  const [prioritiesRef, prioritiesVis] = useScrollAnimation()
   const [artstyleRef, artstyleVis] = useScrollAnimation()
   const [tokenomicsRef, tokenomicsVis] = useScrollAnimation()
   const [ctaRef, ctaVis] = useScrollAnimation()
@@ -182,8 +182,8 @@ function App() {
         <div className="popup-overlay" onClick={() => setShowPopup(false)}>
           <div className="popup" onClick={(e) => e.stopPropagation()}>
             <button className="popup-close" onClick={() => setShowPopup(false)} aria-label="Close">×</button>
-            <h3 className="popup-title">Want a Whitelist Spot?</h3>
-            <p className="popup-text">Join our Telegram to get on the whitelist for the Offishol NFT mint.</p>
+            <h3 className="popup-title">Join the squad</h3>
+            <p className="popup-text">Join our Telegram for burn updates, app news, and everything Offishol during the World Cup.</p>
             <a href="https://t.me/offisholfutbol" target="_blank" rel="noopener noreferrer" className="popup-btn">
               Join Telegram
               <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
@@ -302,7 +302,7 @@ function App() {
           <div className="hero-text">
             <div className="hero-eyebrow">On Solana · World Cup 2026</div>
             <h1 className="main-title">OFFISHOL<br/>FUTBOL<span className="token">$FUTBOL</span></h1>
-            <p className="tagline">The Offishol Futbol Organization on Solana — where football culture meets the blockchain. No cap, no presale, pure vibes.</p>
+            <p className="tagline">Fair launch on Solana: live-match token burns tied to World Cup 2026, plus peer-to-peer betting — no presale.</p>
             <div className="hero-stats">
               <div className="hero-stat">
                 <span className="hero-stat-num">1B</span>
@@ -338,65 +338,220 @@ function App() {
         </div>
       </section>
 
-      <section className="breaking">
-        <div className="breaking-badge">BREAKING NEWS</div>
-        <h2 className="african-headline">OFFISHOL FUTBOL ORGANIZATION ON SOLANA DECLARES WAR ON BORING MEME COINS! WORLD CUP 2026 WILL NEVER BE THE SAME, NA WA O!</h2>
-      </section>
+      <section ref={prioritiesRef} className={`priorities ${prioritiesVis ? 'visible' : ''}`} aria-labelledby="priorities-heading">
+        <div className="priorities-shell">
+          <header className="priorities-shell-head">
+            <p className="priorities-shell-eyebrow">What we ship</p>
+            <h2 id="priorities-heading" className="priorities-shell-title">Burns &amp; betting</h2>
+            <p className="priorities-shell-lede">Live-match burns and Solana-first gameplay — the two reasons $FUTBOL exists for this World Cup.</p>
+          </header>
 
-      <section className="countdown-section">
-        <div className="countdown-eyebrow">KICKOFF IN</div>
-        <h3 className="countdown-title">FIFA World Cup 2026</h3>
-        <p className="countdown-sub">June 11 – July 19, 2026 · USA · Canada · Mexico</p>
-        <div className="countdown-grid">
-          <div className="countdown-box"><span className="countdown-num">{countdown.days}</span><span className="countdown-unit">days</span></div>
-          <div className="countdown-box"><span className="countdown-num">{countdown.hours}</span><span className="countdown-unit">hours</span></div>
-          <div className="countdown-box"><span className="countdown-num">{countdown.mins}</span><span className="countdown-unit">mins</span></div>
-          <div className="countdown-box"><span className="countdown-num">{countdown.secs}</span><span className="countdown-unit">secs</span></div>
+          <div className="priorities-body">
+            <section className="priorities-lane priorities-lane--burn" aria-labelledby="prio-burn-title">
+              <div className="priorities-lane-rail" aria-hidden>
+                <span className="priorities-rail-icon"><SoccerIcon /></span>
+                <span className="priorities-rail-text">Burns</span>
+              </div>
+              <div className="priorities-lane-main">
+                <h3 id="prio-burn-title" className="priorities-lane-title">Live-match burns</h3>
+                <p className="priorities-lane-copy">
+                  Tokens leave circulation for good. During the World Cup, official match events pull from the live-match allocation — more drama on the pitch, less float on-chain.
+                </p>
+                <p className="priorities-lane-highlight">
+                  <strong>Every goal</strong> and <strong>every yellow or red card</strong> is a burn event.
+                </p>
+                <dl className="priorities-metrics" aria-label="Burn size per event">
+                  <div className="priorities-metric priorities-metric--goal">
+                    <dt>Goal</dt>
+                    <dd>250,000 <span className="priorities-metric-ticker">$FUTBOL</span></dd>
+                  </div>
+                  <div className="priorities-metric priorities-metric--card">
+                    <dt>Yellow / red</dt>
+                    <dd>100,000 <span className="priorities-metric-ticker">$FUTBOL</span></dd>
+                  </div>
+                </dl>
+                <p className="priorities-lane-foot">FIFA World Cup 2026 · Proof-of-burn cadence on official channels before kickoff.</p>
+              </div>
+            </section>
+
+            <div className="priorities-spine" aria-hidden />
+
+            <section className="priorities-lane priorities-lane--bet" aria-labelledby="prio-bet-title">
+              <div className="priorities-lane-rail" aria-hidden>
+                <span className="priorities-rail-icon"><BettingIcon /></span>
+                <span className="priorities-rail-text">Play</span>
+              </div>
+              <div className="priorities-lane-main">
+                <h3 id="prio-bet-title" className="priorities-lane-title">Leaderboards &amp; betting</h3>
+                <p className="priorities-lane-copy">
+                  Solana gaming, football-first: create a simple account, get 1,000 free Futbol Points, and bet your way to the top of the leaderboards.
+                </p>
+                <div className="priorities-cta-block">
+                  <a href={BET_APP_URL} target="_blank" rel="noopener noreferrer" className="priorities-app-btn">
+                    <AppIcon />
+                    Open bet.offishol.futbol
+                  </a>
+                  <p className="priorities-powered">
+                    Match data via{' '}
+                    <a href={LIVE_SCORE_API_URL} target="_blank" rel="noopener noreferrer">live-score-api.com</a>
+                  </p>
+                </div>
+              </div>
+            </section>
+          </div>
         </div>
       </section>
 
       <section ref={wcRef} className={`worldcup ${wcVis ? 'visible' : ''}`}>
-        <div className="wc-header">
-          <h2 className="wc-title">The Biggest Event in Football</h2>
-          <p className="wc-subtitle">FIFA World Cup 2026 — the most expanded tournament in history</p>
-        </div>
+        <div className="wc-shell">
+          <header className="wc-shell-header">
+            <p className="wc-shell-kicker">FIFA World Cup 2026</p>
+            <h2 className="wc-shell-title">The biggest event in football</h2>
+            <p className="wc-shell-sub">June 11 – July 19 · USA, Canada, Mexico · 48 teams</p>
+          </header>
 
-        <div className="wc-stats-row">
-          {WC_STATS.map((s) => (
-            <div key={s.num} className="wc-stat-card">
-              <span className="wc-stat-num">{s.num}</span>
-              <span className="wc-stat-label">{s.label}</span>
-              <span className="wc-stat-sub">{s.sub}</span>
+          <div className="wc-stat-strip" role="list" aria-label="Tournament scale">
+            {WC_STATS.map((s) => (
+              <div key={s.label} className="wc-stat-item" role="listitem">
+                <span className="wc-stat-item-num">{s.num}</span>
+                <span className="wc-stat-item-label">{s.label}</span>
+                <span className="wc-stat-item-sub">{s.sub}</span>
+              </div>
+            ))}
+          </div>
+
+          <div className="wc-host-bar" aria-label="Host nations">
+            <span className="wc-host-bar-label">Hosts</span>
+            <div className="wc-host-pills">
+              {WC_HOSTS.map((h) => (
+                <div key={h.country} className="wc-host-pill">
+                  <span className="wc-host-pill-flag" aria-hidden>{h.flag}</span>
+                  <span className="wc-host-pill-text">
+                    <strong>{h.country}</strong>
+                    <span>{h.cities}</span>
+                  </span>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
+          </div>
 
-        <div className="wc-hosts-row">
-          {WC_HOSTS.map((h) => (
-            <div key={h.country} className="wc-host-card">
-              <span className="wc-host-flag">{h.flag}</span>
-              <span className="wc-host-country">{h.country}</span>
-              <span className="wc-host-cities">{h.cities}</span>
+          <div className="wc-story">
+            <div className="wc-story-block">
+              <span className="wc-story-num" aria-hidden>01</span>
+              <div className="wc-story-body">
+                <h3 className="wc-story-heading">Format upgrade</h3>
+                <p>48 nations for the first time — up from 32. More upsets, more drama, more moments to care about on the app.</p>
+              </div>
             </div>
-          ))}
+            <div className="wc-story-block">
+              <span className="wc-story-num" aria-hidden>02</span>
+              <div className="wc-story-body">
+                <h3 className="wc-story-heading">The final</h3>
+                <p>MetLife Stadium, New Jersey · July 19, 2026 — the biggest single night in the sport.</p>
+              </div>
+            </div>
+            <div className="wc-story-block">
+              <span className="wc-story-num" aria-hidden>03</span>
+              <div className="wc-story-body">
+                <h3 className="wc-story-heading">Why it matters here</h3>
+                <p>A month of wall-to-wall football and billions of viewers — the window where burns and leaderboards actually mean something.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section ref={tokenomicsRef} className={`tokenomics ${tokenomicsVis ? 'visible' : ''}`}>
+        <h2 className="tokenomics-title">Tokenumics</h2>
+        <p className="tokenomics-intro">1B supply · 0% presale · Pump.fun fair launch.</p>
+
+        <div className="tokenomics-supply-row">
+          <div className="tokenomics-supply-card">
+            <span className="supply-label">Total Supply</span>
+            <span className="supply-num">1,000,000,000</span>
+            <span className="supply-ticker">$FUTBOL</span>
+          </div>
+          <div className="tokenomics-supply-card">
+            <span className="supply-label">Presale</span>
+            <span className="supply-num supply-zero">0%</span>
+            <span className="supply-ticker">No presale ever</span>
+          </div>
+          <div className="tokenomics-supply-card">
+            <span className="supply-label">Development</span>
+            <span className="supply-num supply-locked">3%</span>
+            <span className="supply-ticker">Locked</span>
+          </div>
         </div>
 
-        <div className="wc-info-grid">
-          <div className="wc-info-card">
-            <h4>Format Upgrade</h4>
-            <p>For the first time ever, 48 nations compete — up from 32. More upsets, more drama, more moments to bet on.</p>
+        <div className="tokenomics-chart">
+          <div className="tokenomics-pie" />
+          <div className="tokenomics-legend">
+            <div className="legend-item legend-80">
+              <span className="legend-dot" />
+              <div>
+                <strong>80% — Open Market</strong>
+                <p>Public distribution — no insider allocation.</p>
+              </div>
+            </div>
+            <div className="legend-item legend-10">
+              <span className="legend-dot" />
+              <div>
+                <strong>10% — Live-Match Burns</strong>
+                <p>Allocated for tournament-time burns (see above for per-event sizes).</p>
+              </div>
+            </div>
+            <div className="legend-item legend-7">
+              <span className="legend-dot" />
+              <div>
+                <strong>7% — Betting</strong>
+                <p>Ecosystem and rewards around the decentralized betting platform.</p>
+              </div>
+            </div>
+            <div className="legend-item legend-3">
+              <span className="legend-dot" />
+              <div>
+                <strong>3% — Development</strong>
+                <p>Creator fees, marketing, and buybacks — locked and released on a transparent schedule.</p>
+              </div>
+            </div>
           </div>
-          <div className="wc-info-card">
-            <h4>The Final</h4>
-            <p>MetLife Stadium, New Jersey. The largest stage in football. July 19, 2026 — the $FUTBOL endgame.</p>
+        </div>
+      </section>
+
+      <section ref={roadmapRef} className={`roadmap-section ${roadmapVis ? 'visible' : ''}`}>
+        <h2 className="roadmap-main-title">The Plan</h2>
+        <div className="roadmap-timeline">
+          <div className="roadmap-step">
+            <div className="roadmap-dot" />
+            <div className="roadmap-content">
+              <span className="roadmap-phase">Phase 1</span>
+              <h4>Launch & Community</h4>
+              <p>Telegram, X, and the CA when we go live — official channels only.</p>
+            </div>
           </div>
-          <div className="wc-info-card">
-            <h4>Why It Matters for Crypto</h4>
-            <p>5 billion viewers. Maximum global attention. The perfect storm for a football meme coin to take off on Solana.</p>
+          <div className="roadmap-step">
+            <div className="roadmap-dot" />
+            <div className="roadmap-content">
+              <span className="roadmap-phase">Phase 2</span>
+              <h4>Live-match burn engine</h4>
+              <p>Wire official match data to on-chain burns from the 10% pool — verifiable at tournament scale.</p>
+            </div>
           </div>
-          <div className="wc-info-card">
-            <h4>Our Timeline</h4>
-            <p>Token launch, NFT mint, and betting dApp all planned to go live before or during the tournament.</p>
+          <div className="roadmap-step">
+            <div className="roadmap-dot" />
+            <div className="roadmap-content">
+              <span className="roadmap-phase">Phase 3</span>
+              <h4>Betting dApp Live</h4>
+              <p>Ship the full P2P flow ahead of kickoff — contract-settled stakes in $FUTBOL.</p>
+            </div>
+          </div>
+          <div className="roadmap-step">
+            <div className="roadmap-dot roadmap-dot-future" />
+            <div className="roadmap-content roadmap-content-future">
+              <span className="roadmap-phase">Phase 4</span>
+              <h4>World Cup Season</h4>
+              <p>Run the stack under real match load — the month the project is built for.</p>
+            </div>
           </div>
         </div>
       </section>
@@ -417,23 +572,23 @@ function App() {
           </div>
           <div className="why-item why-2">
             <span className="why-num">02</span>
-            <h3>Real Utility</h3>
-            <p>NFT collection + a full P2P betting dApp. $FUTBOL is the fuel. Not just another meme — we're building things people will actually use during the World Cup.</p>
+            <h3>Built for matchday</h3>
+            <p>$FUTBOL is meant to be interesting when the TV is on — not a whitepaper fantasy. The mechanics line up with real fixtures and real volume.</p>
           </div>
           <div className="why-item why-3">
             <span className="why-num">03</span>
-            <h3>World Cup 2026</h3>
-            <p>5 billion viewers. The biggest sporting event on earth. We're positioned right at the intersection of football culture and crypto at peak global attention.</p>
+            <h3>Football culture</h3>
+            <p>Memes, banter, and the global conversation around the tournament — we lean into the fun without pretending the sport is an afterthought.</p>
           </div>
           <div className="why-item why-4">
             <span className="why-num">04</span>
             <h3>Original Art</h3>
-            <p>100% original hand-drawn style. Owned entirely by us. The foundation of our whole NFT collection — nobody else has this look.</p>
+            <p>100% original hand-drawn style. Owned entirely by us — the face of Offishol on socials, the site, and everything we ship. Nobody else has this look.</p>
           </div>
           <div className="why-item why-5">
             <span className="why-num">05</span>
             <h3>Solana Speed</h3>
-            <p>Near-instant transactions and near-zero fees. The only chain that makes sense for betting, minting, and trading at World Cup scale.</p>
+            <p>Near-instant transactions and near-zero fees. The only chain that makes sense for betting, burns, and trading at World Cup scale.</p>
           </div>
         </div>
       </section>
@@ -455,167 +610,29 @@ function App() {
             <span className="card-value typo">Pemp Fon</span>
             <span className="card-sub">Fair launch</span>
           </div>
-          <div className="card card-app">
-            <span className="card-label">App</span>
-            <span className="card-value card-value-app">Live Now</span>
-            <a href={BET_APP_URL} target="_blank" rel="noopener noreferrer" className="card-app-link">
-              Open App →
-            </a>
-          </div>
-        </div>
-      </section>
-
-      <section ref={featuresRef} className={`features ${featuresVis ? 'visible' : ''}`}>
-        <h2 className="section-title">What We're Building</h2>
-        <div className="feature">
-          <div className="feature-icon"><SoccerIcon /></div>
-          <div className="feature-body">
-            <h3>NFT Collection — FIFA World Cup 2026 Players</h3>
-            <p>A full NFT set featuring every player in FIFA World Cup 2026 in our signature drawing style. <strong>NFTs will be free to mint for $FUTBOL holders at the start of the World Cup</strong> — then trade them and flex your squad.</p>
-            <div className="feature-tags">
-              <span className="feature-tag">48 nations</span>
-              <span className="feature-tag">Original art</span>
-              <span className="feature-tag">Pre-mint whitelist</span>
-            </div>
-          </div>
-        </div>
-        <div className="feature">
-          <div className="feature-icon"><BettingIcon /></div>
-          <div className="feature-body">
-            <h3>Decentralized Betting Platform</h3>
-            <p>Peer-to-peer betting for match outcomes using $FUTBOL. No middleman, no bookmaker taking cuts. Smart contracts handle payouts automatically on Solana.</p>
-            <div className="feature-tags">
-              <span className="feature-tag">P2P betting</span>
-              <span className="feature-tag">Smart contracts</span>
-              <span className="feature-tag">$FUTBOL rewards</span>
-            </div>
-          </div>
-        </div>
-        <div className="features-app-cta">
-          <p>The app is already live — connect your wallet and explore.</p>
-          <a href={BET_APP_URL} target="_blank" rel="noopener noreferrer" className="features-app-btn">
-            <AppIcon />
-            Open bet.offishol.futbol
-          </a>
-          <p className="features-powered-by">
-            Match data powered by{' '}
-            <a href={LIVE_SCORE_API_URL} target="_blank" rel="noopener noreferrer">
-              live-score-api.com
-            </a>{' '}
-            for reliable live scores and coverage.
-          </p>
         </div>
       </section>
 
       <section ref={artstyleRef} className={`artstyle ${artstyleVis ? 'visible' : ''}`}>
         <h2 className="section-title">Our Artstyle</h2>
         <div className="artstyle-featured">
-          <img src="/messi1.jpeg" alt="Offishol NFT — Messi dribbling in Argentina kit" className="artstyle-featured-img" />
+          <img src="/messi1.jpeg" alt="Offishol Futbol — Messi dribbling in Argentina kit, hand-drawn style" className="artstyle-featured-img" />
           <div className="artstyle-featured-text">
-            <div className="artstyle-featured-tag">NFT Preview</div>
-            <h3 className="artstyle-featured-title">World Cup 2026 Players</h3>
-            <p>Every nation. Every star. Our signature hand-drawn cartoon style brings the biggest players on earth to the Solana blockchain — collectable, tradeable, and completely original. <strong>NFTs will be free to mint for $FUTBOL holders at the start of the World Cup.</strong></p>
-            <p>This is what the collection looks like. 48 nations, hundreds of players, one consistent artstyle built from scratch.</p>
+            <div className="artstyle-featured-tag">Art preview</div>
+            <h3 className="artstyle-featured-title">World Cup 2026 on canvas</h3>
+            <p>Every nation. Every star — our hand-drawn cartoon line, built from scratch for Offishol across brand, content, and product.</p>
           </div>
         </div>
         <div className="artstyle-images">
-          <img src="/nft1.jpeg" alt="Offishol NFT art example 1" className="artstyle-img" />
-          <img src="/nft2.jpeg" alt="Offishol NFT art example 2" className="artstyle-img" />
-          <img src="/nft3.png" alt="Offishol NFT art example 3" className="artstyle-img" />
-          <img src="/nft4.png" alt="Offishol NFT art example 4" className="artstyle-img" />
-          <img src="/nft5.png" alt="Offishol NFT art example 5" className="artstyle-img" />
+          <img src="/nft1.jpeg" alt="Offishol Futbol hand-drawn player art example 1" className="artstyle-img" />
+          <img src="/nft2.jpeg" alt="Offishol Futbol hand-drawn player art example 2" className="artstyle-img" />
+          <img src="/nft3.png" alt="Offishol Futbol hand-drawn player art example 3" className="artstyle-img" />
+          <img src="/nft4.png" alt="Offishol Futbol hand-drawn player art example 4" className="artstyle-img" />
+          <img src="/nft5.png" alt="Offishol Futbol hand-drawn player art example 5" className="artstyle-img" />
         </div>
         <div className="artstyle-copy">
           <p>This look is <strong>100% ours</strong>. We own the creative idea and the art — the vibes, the whole Offishol Futbol identity. What you see here is the real deal.</p>
           <p>We are <strong>not affiliated</strong> with any other project or token that tries to copy or replicate our art or brand. If it's not from our official X and Telegram, it's not us. Stay sharp and only trust links from our official channels.</p>
-        </div>
-      </section>
-
-      <section ref={tokenomicsRef} className={`tokenomics ${tokenomicsVis ? 'visible' : ''}`}>
-        <h2 className="tokenomics-title">Tokenumics</h2>
-        <p className="tokenomics-intro">Open market launch with 0% in presale over Pump.fun.</p>
-
-        <div className="tokenomics-supply-row">
-          <div className="tokenomics-supply-card">
-            <span className="supply-label">Total Supply</span>
-            <span className="supply-num">1,000,000,000</span>
-            <span className="supply-ticker">$FUTBOL</span>
-          </div>
-          <div className="tokenomics-supply-card">
-            <span className="supply-label">Presale</span>
-            <span className="supply-num supply-zero">0%</span>
-            <span className="supply-ticker">No presale ever</span>
-          </div>
-          <div className="tokenomics-supply-card">
-            <span className="supply-label">Dev tokens</span>
-            <span className="supply-num supply-locked">5%</span>
-            <span className="supply-ticker">Locked</span>
-          </div>
-        </div>
-
-        <div className="tokenomics-chart">
-          <div className="tokenomics-pie" />
-          <div className="tokenomics-legend">
-            <div className="legend-item legend-80">
-              <span className="legend-dot" />
-              <div>
-                <strong>80% — Open Market</strong>
-                <p>Fair launch on Pump.fun. No insiders, no VC allocation.</p>
-              </div>
-            </div>
-            <div className="legend-item legend-15">
-              <span className="legend-dot" />
-              <div>
-                <strong>15% — Betting dApp Rewards</strong>
-                <p>Distributed to $FUTBOL holders who use the betting platform.</p>
-              </div>
-            </div>
-            <div className="legend-item legend-5">
-              <span className="legend-dot" />
-              <div>
-                <strong>5% — Development</strong>
-                <p>Locked tokens for ongoing development. Transparent & time-locked.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section ref={roadmapRef} className={`roadmap-section ${roadmapVis ? 'visible' : ''}`}>
-        <h2 className="roadmap-main-title">The Plan</h2>
-        <div className="roadmap-timeline">
-          <div className="roadmap-step">
-            <div className="roadmap-dot" />
-            <div className="roadmap-content">
-              <span className="roadmap-phase">Phase 1</span>
-              <h4>Launch & Community</h4>
-              <p>Fair launch on Pump.fun. 0% presale, equal access for everyone. Community building on Telegram and X. CA drop on official channels only.</p>
-            </div>
-          </div>
-          <div className="roadmap-step">
-            <div className="roadmap-dot" />
-            <div className="roadmap-content">
-              <span className="roadmap-phase">Phase 2</span>
-              <h4>NFT Collection Drop</h4>
-              <p>World Cup 2026 player NFT mint. Full collection featuring players from all 48 nations. <strong>Free mint for $FUTBOL holders at World Cup kickoff</strong> — plus whitelist spots for early community members. Trade & flex on-chain.</p>
-            </div>
-          </div>
-          <div className="roadmap-step">
-            <div className="roadmap-dot" />
-            <div className="roadmap-content">
-              <span className="roadmap-phase">Phase 3</span>
-              <h4>Betting dApp Live</h4>
-              <p>Decentralized P2P betting platform goes live ahead of World Cup kickoff. Bet on match outcomes using $FUTBOL. Smart contract payouts, no middleman.</p>
-            </div>
-          </div>
-          <div className="roadmap-step">
-            <div className="roadmap-dot roadmap-dot-future" />
-            <div className="roadmap-content roadmap-content-future">
-              <span className="roadmap-phase">Phase 4</span>
-              <h4>World Cup Season</h4>
-              <p>Full tournament coverage. Live betting, NFT trading at peak volume. The $FUTBOL ecosystem running at full capacity during the biggest sporting event on earth.</p>
-            </div>
-          </div>
         </div>
       </section>
 
