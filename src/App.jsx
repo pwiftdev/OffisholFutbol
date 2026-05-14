@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useCallback } from 'react'
 import './App.css'
 import { SoccerIcon, BettingIcon } from './components/Icons'
 
@@ -41,9 +41,9 @@ function useScrollAnimation() {
 const FAQ_ITEMS = [
   { q: 'What is $FUTBOL?', a: '$FUTBOL is the native token of Offishol Futbol — a meme project on Solana built around FIFA World Cup 2026. It powers our NFT collection and decentralized betting platform.' },
   { q: 'How do I buy?', a: 'We launch on Pump.fun with 0% presale. Connect your Solana wallet and swap SOL for $FUTBOL when we go live. Links will drop on our official X and Telegram.' },
-  { q: 'When is the NFT mint?', a: 'Our FIFA World Cup 2026 player NFT collection will mint before the championship. Join Telegram for whitelist spots and updates.' },
+  { q: 'When is the NFT mint?', a: 'Our FIFA World Cup 2026 player NFT collection lines up with the tournament. NFTs will be free to mint for wallets that hold $FUTBOL at the start of the World Cup — join Telegram for timing and eligibility details.' },
   { q: 'What is the total supply?', a: '1,000,000,000 $FUTBOL tokens. 80% open market, 15% betting dApp rewards, 5% development (locked).' },
-  { q: 'Is the betting dApp live?', a: 'The betting dApp is currently in development. It will launch ahead of the World Cup 2026 kickoff. Connect your wallet at app.offishol.futbol to stay ready.' },
+  { q: 'Is the betting dApp live?', a: 'The betting dApp is currently in development. It will launch ahead of the World Cup 2026 kickoff. Connect your wallet at bet.offishol.futbol to stay ready.' },
   { q: 'How do I get whitelisted for the NFT mint?', a: 'Join our Telegram community and follow our X account. Whitelist spots will be announced through official channels only.' },
 ]
 
@@ -60,6 +60,10 @@ const WC_STATS = [
   { num: '5B+', label: 'Viewers', sub: 'Global audience' },
 ]
 
+const BET_APP_URL = 'https://bet.offishol.futbol'
+const WC_STREAM_URL = 'https://offishol.futbol'
+const LIVE_SCORE_API_URL = 'https://live-score-api.com/'
+
 function AppIcon() {
   return (
     <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
@@ -73,6 +77,8 @@ function App() {
   const [showPopup, setShowPopup] = useState(false)
   const [hasTriggered, setHasTriggered] = useState(false)
   const [openFaq, setOpenFaq] = useState(null)
+  const [mobileNavOpen, setMobileNavOpen] = useState(false)
+  const navToggleRef = useRef(null)
   const [heroRef, heroVis] = useScrollAnimation()
   const [wcRef, wcVis] = useScrollAnimation()
   const [whyRef, whyVis] = useScrollAnimation()
@@ -82,6 +88,13 @@ function App() {
   const [tokenomicsRef, tokenomicsVis] = useScrollAnimation()
   const [ctaRef, ctaVis] = useScrollAnimation()
   const countdown = useCountdown('2026-06-11T00:00:00Z')
+
+  const closeMobileNav = useCallback(() => {
+    setMobileNavOpen(false)
+    requestAnimationFrame(() => {
+      navToggleRef.current?.focus()
+    })
+  }, [])
 
   useEffect(() => {
     const timer = setTimeout(() => setLoaded(true), 2200)
@@ -116,6 +129,27 @@ function App() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [hasTriggered])
 
+  useEffect(() => {
+    const mq = window.matchMedia('(min-width: 901px)')
+    const onChange = () => setMobileNavOpen(false)
+    mq.addEventListener('change', onChange)
+    return () => mq.removeEventListener('change', onChange)
+  }, [])
+
+  useEffect(() => {
+    if (!mobileNavOpen) return
+    const onKey = (e) => {
+      if (e.key === 'Escape') closeMobileNav()
+    }
+    document.addEventListener('keydown', onKey)
+    const prev = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    return () => {
+      document.removeEventListener('keydown', onKey)
+      document.body.style.overflow = prev
+    }
+  }, [mobileNavOpen, closeMobileNav])
+
   return (
     <>
       {!loaded && (
@@ -135,6 +169,15 @@ function App() {
         <img src="/icons/soccer.png" alt="" className="dvd-ball" />
       </div>
 
+      <div className="wc-top-banner" role="region" aria-label="World Cup coverage">
+        <p className="wc-top-banner-text">
+          Live-stream and full coverage of all World Cup matches. Watch World Cup at{' '}
+          <a href={WC_STREAM_URL} target="_blank" rel="noopener noreferrer" className="wc-top-banner-link">
+            offishol.futbol
+          </a>
+        </p>
+      </div>
+
       {showPopup && (
         <div className="popup-overlay" onClick={() => setShowPopup(false)}>
           <div className="popup" onClick={(e) => e.stopPropagation()}>
@@ -151,8 +194,19 @@ function App() {
 
       <header className="site-header">
         <div className="header-inner">
-          <img src="/offishollogo.jpg" alt="Offishol Futbol" className="header-logo" />
-          <span className="header-brand">Offishol Futbol <strong>$FUTBOL</strong></span>
+          <div className="header-left">
+            <img src="/offishollogo.jpg" alt="Offishol Futbol" className="header-logo" />
+            <span className="header-brand">Offishol Futbol <strong>$FUTBOL</strong></span>
+          </div>
+          <div className="header-countdown" aria-live="polite">
+            <span className="header-countdown-label">World Cup</span>
+            <div className="header-countdown-units">
+              <span className="header-countdown-unit" title="Days"><strong>{countdown.days}</strong>d</span>
+              <span className="header-countdown-unit" title="Hours"><strong>{countdown.hours}</strong>h</span>
+              <span className="header-countdown-unit" title="Minutes"><strong>{countdown.mins}</strong>m</span>
+              <span className="header-countdown-unit" title="Seconds"><strong>{countdown.secs}</strong>s</span>
+            </div>
+          </div>
           <div className="header-buttons">
             <a href="https://x.com/offisholfutbol" target="_blank" rel="noopener noreferrer" className="header-btn header-btn-x" title="X">
               <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
@@ -161,13 +215,82 @@ function App() {
               <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
             </a>
             <button type="button" className="header-btn header-btn-buy">BUY</button>
-            <a href="https://app.offishol.futbol" target="_blank" rel="noopener noreferrer" className="header-btn header-btn-app">
+            <a href={BET_APP_URL} target="_blank" rel="noopener noreferrer" className="header-btn header-btn-app">
               <AppIcon />
               <span>Open App</span>
             </a>
           </div>
+          <button
+            ref={navToggleRef}
+            type="button"
+            className="header-menu-toggle"
+            aria-expanded={mobileNavOpen}
+            aria-controls="site-nav-drawer"
+            onClick={() => setMobileNavOpen((o) => !o)}
+            aria-label={mobileNavOpen ? 'Close menu' : 'Open menu'}
+          >
+            <span className="header-menu-bar" aria-hidden />
+            <span className="header-menu-bar" aria-hidden />
+            <span className="header-menu-bar" aria-hidden />
+          </button>
         </div>
       </header>
+
+      <div
+        className={`nav-drawer-overlay ${mobileNavOpen ? 'nav-drawer-overlay--open' : ''}`}
+        onClick={closeMobileNav}
+        aria-hidden={!mobileNavOpen}
+      />
+      <aside
+        id="site-nav-drawer"
+        className={`nav-drawer ${mobileNavOpen ? 'nav-drawer--open' : ''}`}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Site menu"
+        aria-hidden={!mobileNavOpen}
+      >
+        <div className="nav-drawer-header">
+          <span className="nav-drawer-title">Menu</span>
+          <button type="button" className="nav-drawer-close" onClick={closeMobileNav} aria-label="Close menu">
+            ×
+          </button>
+        </div>
+        <nav className="nav-drawer-nav">
+          <div className="nav-drawer-countdown" aria-live="polite">
+            <span className="nav-drawer-countdown-label">World Cup kickoff</span>
+            <div className="nav-drawer-countdown-units">
+              <span><strong>{countdown.days}</strong> d</span>
+              <span><strong>{countdown.hours}</strong> h</span>
+              <span><strong>{countdown.mins}</strong> m</span>
+              <span><strong>{countdown.secs}</strong> s</span>
+            </div>
+          </div>
+          <a
+            href={WC_STREAM_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="nav-drawer-link"
+            onClick={closeMobileNav}
+          >
+            Watch World Cup — offishol.futbol
+          </a>
+          <a href={BET_APP_URL} target="_blank" rel="noopener noreferrer" className="nav-drawer-link nav-drawer-link--highlight" onClick={closeMobileNav}>
+            <AppIcon />
+            Open App (bet.offishol.futbol)
+          </a>
+          <a href="https://x.com/offisholfutbol" target="_blank" rel="noopener noreferrer" className="nav-drawer-link" onClick={closeMobileNav}>
+            <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22" aria-hidden><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            Follow on X
+          </a>
+          <a href="https://t.me/offisholfutbol" target="_blank" rel="noopener noreferrer" className="nav-drawer-link" onClick={closeMobileNav}>
+            <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22" aria-hidden><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+            Join Telegram
+          </a>
+          <button type="button" className="nav-drawer-link nav-drawer-link--buy" onClick={closeMobileNav}>
+            Buy $FUTBOL
+          </button>
+        </nav>
+      </aside>
 
       <section ref={heroRef} className={`hero ${heroVis ? 'visible' : ''}`}>
         <div className="hero-glow" aria-hidden />
@@ -197,7 +320,7 @@ function App() {
               </div>
             </div>
             <div className="hero-ctas">
-              <a href="https://app.offishol.futbol" target="_blank" rel="noopener noreferrer" className="hero-cta hero-cta-app">
+              <a href={BET_APP_URL} target="_blank" rel="noopener noreferrer" className="hero-cta hero-cta-app">
                 <AppIcon />
                 Open App
               </a>
@@ -335,7 +458,7 @@ function App() {
           <div className="card card-app">
             <span className="card-label">App</span>
             <span className="card-value card-value-app">Live Now</span>
-            <a href="https://app.offishol.futbol" target="_blank" rel="noopener noreferrer" className="card-app-link">
+            <a href={BET_APP_URL} target="_blank" rel="noopener noreferrer" className="card-app-link">
               Open App →
             </a>
           </div>
@@ -348,7 +471,7 @@ function App() {
           <div className="feature-icon"><SoccerIcon /></div>
           <div className="feature-body">
             <h3>NFT Collection — FIFA World Cup 2026 Players</h3>
-            <p>A full NFT set featuring every player in FIFA World Cup 2026 in our signature drawing style. Mint before the championship, trade them, flex your squad.</p>
+            <p>A full NFT set featuring every player in FIFA World Cup 2026 in our signature drawing style. <strong>NFTs will be free to mint for $FUTBOL holders at the start of the World Cup</strong> — then trade them and flex your squad.</p>
             <div className="feature-tags">
               <span className="feature-tag">48 nations</span>
               <span className="feature-tag">Original art</span>
@@ -370,10 +493,17 @@ function App() {
         </div>
         <div className="features-app-cta">
           <p>The app is already live — connect your wallet and explore.</p>
-          <a href="https://app.offishol.futbol" target="_blank" rel="noopener noreferrer" className="features-app-btn">
+          <a href={BET_APP_URL} target="_blank" rel="noopener noreferrer" className="features-app-btn">
             <AppIcon />
-            Open app.offishol.futbol
+            Open bet.offishol.futbol
           </a>
+          <p className="features-powered-by">
+            Match data powered by{' '}
+            <a href={LIVE_SCORE_API_URL} target="_blank" rel="noopener noreferrer">
+              live-score-api.com
+            </a>{' '}
+            for reliable live scores and coverage.
+          </p>
         </div>
       </section>
 
@@ -384,7 +514,7 @@ function App() {
           <div className="artstyle-featured-text">
             <div className="artstyle-featured-tag">NFT Preview</div>
             <h3 className="artstyle-featured-title">World Cup 2026 Players</h3>
-            <p>Every nation. Every star. Our signature hand-drawn cartoon style brings the biggest players on earth to the Solana blockchain — collectable, tradeable, and completely original.</p>
+            <p>Every nation. Every star. Our signature hand-drawn cartoon style brings the biggest players on earth to the Solana blockchain — collectable, tradeable, and completely original. <strong>NFTs will be free to mint for $FUTBOL holders at the start of the World Cup.</strong></p>
             <p>This is what the collection looks like. 48 nations, hundreds of players, one consistent artstyle built from scratch.</p>
           </div>
         </div>
@@ -467,7 +597,7 @@ function App() {
             <div className="roadmap-content">
               <span className="roadmap-phase">Phase 2</span>
               <h4>NFT Collection Drop</h4>
-              <p>World Cup 2026 player NFT mint. Full collection featuring players from all 48 nations. Whitelist spots for early community members. Trade & flex on-chain.</p>
+              <p>World Cup 2026 player NFT mint. Full collection featuring players from all 48 nations. <strong>Free mint for $FUTBOL holders at World Cup kickoff</strong> — plus whitelist spots for early community members. Trade & flex on-chain.</p>
             </div>
           </div>
           <div className="roadmap-step">
@@ -508,7 +638,7 @@ function App() {
         <h2 className="cta-title">Ready to Play?</h2>
         <p className="cta-sub">Connect your wallet, join the community, and be early to the biggest football meme coin on Solana.</p>
         <div className="cta-buttons">
-          <a href="https://app.offishol.futbol" target="_blank" rel="noopener noreferrer" className="cta-btn cta-btn-app">
+          <a href={BET_APP_URL} target="_blank" rel="noopener noreferrer" className="cta-btn cta-btn-app">
             <AppIcon />
             <span>Open App</span>
           </a>
@@ -532,7 +662,7 @@ function App() {
             <a href="https://x.com/offisholfutbol" target="_blank" rel="noopener noreferrer" className="header-btn header-btn-x" title="X"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
             <button type="button" className="header-btn header-btn-buy">BUY</button>
             <a href="https://t.me/offisholfutbol" target="_blank" rel="noopener noreferrer" className="header-btn header-btn-telegram" title="Telegram"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg></a>
-            <a href="https://app.offishol.futbol" target="_blank" rel="noopener noreferrer" className="header-btn header-btn-app footer-app-btn">
+            <a href={BET_APP_URL} target="_blank" rel="noopener noreferrer" className="header-btn header-btn-app footer-app-btn">
               <AppIcon />
               <span>App</span>
             </a>
