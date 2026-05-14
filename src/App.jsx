@@ -63,7 +63,6 @@ const WC_STATS = [
 const BET_APP_URL = 'https://bet.offishol.futbol'
 const WC_STREAM_URL = 'https://offishol.futbol'
 const LIVE_SCORE_API_URL = 'https://live-score-api.com/'
-const TOKEN_MINT_ADDRESS = '41MQK1i6SMhnc1B9EoCDE8Ayx7HE9hJq9MycEPawpump'
 
 function AppIcon() {
   return (
@@ -79,7 +78,6 @@ function App() {
   const [hasTriggered, setHasTriggered] = useState(false)
   const [openFaq, setOpenFaq] = useState(null)
   const [mobileNavOpen, setMobileNavOpen] = useState(false)
-  const [mintCopied, setMintCopied] = useState(false)
   const navToggleRef = useRef(null)
   const [heroRef, heroVis] = useScrollAnimation()
   const [wcRef, wcVis] = useScrollAnimation()
@@ -96,16 +94,6 @@ function App() {
     requestAnimationFrame(() => {
       navToggleRef.current?.focus()
     })
-  }, [])
-
-  const copyMintAddress = useCallback(async () => {
-    try {
-      await navigator.clipboard.writeText(TOKEN_MINT_ADDRESS)
-      setMintCopied(true)
-      window.setTimeout(() => setMintCopied(false), 2000)
-    } catch {
-      setMintCopied(false)
-    }
   }, [])
 
   useEffect(() => {
@@ -181,23 +169,12 @@ function App() {
         <img src="/icons/soccer.png" alt="" className="dvd-ball" />
       </div>
 
-      <div className="contract-banner" role="region" aria-label="$FUTBOL Solana mint address">
-        <div className="contract-banner-inner">
-          <span className="contract-banner-label">Contract</span>
-          <div className="contract-banner-addr-wrap">
-            <a
-              href={`https://solscan.io/token/${TOKEN_MINT_ADDRESS}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="contract-banner-addr"
-            >
-              {TOKEN_MINT_ADDRESS}
-            </a>
-          </div>
-          <button type="button" className="contract-banner-copy" onClick={copyMintAddress}>
-            {mintCopied ? 'Copied' : 'Copy'}
-          </button>
-        </div>
+      <div className="contract-banner" role="status">
+        <p className="contract-banner-text">
+          <span className="contract-banner-label">Contract address</span>
+          {' — '}
+          <span className="contract-banner-tba">To be announced</span>
+        </p>
       </div>
 
       <div className="wc-top-banner" role="region" aria-label="World Cup coverage">
